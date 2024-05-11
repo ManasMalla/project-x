@@ -1,19 +1,20 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:socialpreneur/data/static/app_data.dart';
-import 'package:socialpreneur/presentation/util/column_extension.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:socialpreneur/presentation/page/home_page.dart';
+import 'package:socialpreneur/presentation/page/signup_page.dart';
+import 'package:socialpreneur/presentation/util/snackbar_util.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
-
   @override
   Widget build(BuildContext context) {
+    final TextEditingController _emailController = TextEditingController();
+    final TextEditingController _passwordController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
-        foregroundColor: Theme.of(context).colorScheme.onPrimary,
-        backgroundColor: const Color(0xFF042B67),
+        foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         // title: Text(
         //   appName.toUpperCase(),
         //   style: Theme.of(context).textTheme.labelLarge?.copyWith(
@@ -29,14 +30,12 @@ class LoginPage extends StatelessWidget {
           Container(
             height: 250,
             width: double.infinity,
-            color: const Color(0xFF042B67),
+            color: Theme.of(context).colorScheme.primaryContainer,
             child: Opacity(
-              opacity: 0.7,
+              opacity: 0.85,
               child: SvgPicture.asset(
                 "assets/images/newsletter-model.svg",
                 height: 200,
-                colorFilter:
-                    const ColorFilter.mode(Colors.white, BlendMode.srcIn),
               ),
             ),
           ),
@@ -69,6 +68,7 @@ class LoginPage extends StatelessWidget {
                   height: 32,
                 ),
                 TextField(
+                  controller: _emailController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(14)),
@@ -82,6 +82,8 @@ class LoginPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     TextField(
+                      obscureText: true,
+                      controller: _passwordController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(14)),
@@ -105,8 +107,43 @@ class LoginPage extends StatelessWidget {
                 Row(
                   children: <Widget>[
                     FilledButton(
-                      onPressed: () {
-                        // Add login logic here
+                      onPressed: () async {
+                        //Implement login
+                        showSnackbar(context, "Logging in...");
+                        try {
+                          await FirebaseAuth.instance
+                              .signInWithEmailAndPassword(
+                                  email: _emailController.text,
+                                  password: _passwordController.text);
+                          //Navigate forward
+                          if (context.mounted) {
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => const HomePage(),
+                              ),
+                            );
+                          }
+                        } on FirebaseAuthException catch (e) {
+                          switch (e.code) {
+                            case 'invalid-email':
+                              showSnackbar(context,
+                                  'Oops! We couldn\'t find the email address.');
+                              break;
+                            case 'user-disabled':
+                              showSnackbar(
+                                  context, 'Oops! User has been disabled.');
+                              break;
+                            case 'user-not-found':
+                              showSnackbar(context, 'Oops! User not found.');
+                              break;
+                            case 'wrong-password':
+                              showSnackbar(context,
+                                  'Oops! Wrong password. Please try again.');
+                              break;
+                            default:
+                              showSnackbar(context, e.message.toString());
+                          }
+                        }
                       },
                       child: Text(
                         'Log in',
@@ -119,7 +156,10 @@ class LoginPage extends StatelessWidget {
                       width: 16,
                     ),
                     OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => SignUpPage()));
+                      },
                       child: Text(
                         "Sign up",
                         style: Theme.of(context)
@@ -151,10 +191,7 @@ class LoginPage extends StatelessWidget {
                       url:
                           "https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg",
                       onTap: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content:
-                                    Text('Not implemented. Coming soon!')));
+                        showSnackbar(context, 'Not implemented. Coming soon!');
                       },
                     ),
                     const SizedBox(width: 36),
@@ -163,10 +200,7 @@ class LoginPage extends StatelessWidget {
                           "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg",
                       iconHeight: 20,
                       onTap: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content:
-                                    Text('Not implemented. Coming soon!')));
+                        showSnackbar(context, 'Not implemented. Coming soon!');
                       },
                     ),
                     const SizedBox(width: 36),
@@ -175,10 +209,7 @@ class LoginPage extends StatelessWidget {
                           "https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023_original.svg",
                       iconHeight: 16,
                       onTap: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content:
-                                    Text('Not implemented. Coming soon!')));
+                        showSnackbar(context, 'Not implemented. Coming soon!');
                       },
                     ),
                   ],

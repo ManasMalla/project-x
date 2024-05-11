@@ -1,1 +1,2 @@
-const appName = "Socialpreneur";
+const appName = "#InnovateIndia";
+//Avinaya - Innovate

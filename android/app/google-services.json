@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "734104480044",
+    "project_id": "socialpreneur-hackathon",
+    "storage_bucket": "socialpreneur-hackathon.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:734104480044:android:4d66f2a6a5ac58750d2489",
+        "android_client_info": {
+          "package_name": "dev.manasmalla.socialpreneur"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZcfeKc5R4tgtyoVsccZwNpmZnGJ4Kmck"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

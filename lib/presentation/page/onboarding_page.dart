@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:socialpreneur/data/static/onboarding_state_holder.dart';
+import 'package:socialpreneur/presentation/page/home_page.dart';
 import 'package:socialpreneur/presentation/page/login_page.dart';
 import 'package:socialpreneur/presentation/widgets/onboarding_page_item_builder.dart';
 

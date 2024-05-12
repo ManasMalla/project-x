@@ -43,6 +43,12 @@ class VenturePage extends StatelessWidget {
                       ),
                     ),
                   ),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: Icon(Icons.chevron_left_rounded),
+                  ),
                 ],
               ),
             ),

@@ -216,54 +216,54 @@ class SearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          height: 40,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: VentureCategory.values
-                .map((e) => Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 6),
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .outlineVariant
-                              .withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(12),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            height: 40,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: VentureCategory.values
+                  .map((e) => Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 6),
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .outlineVariant
+                                .withOpacity(0.3),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 8, horizontal: 24),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.arrow_outward_rounded,
+                                    size: 12,
+                                  ),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  Text(
+                                    e.name,
+                                    style:
+                                        Theme.of(context).textTheme.labelMedium,
+                                  ),
+                                ],
+                              )),
                         ),
-                        child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 8, horizontal: 24),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  Icons.arrow_outward_rounded,
-                                  size: 12,
-                                ),
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                Text(
-                                  e.name,
-                                  style:
-                                      Theme.of(context).textTheme.labelMedium,
-                                ),
-                              ],
-                            )),
-                      ),
-                    ))
-                .toList(),
+                      ))
+                  .toList(),
+            ),
           ),
-        ),
-        SizedBox(
-          height: 24,
-        ),
-        Expanded(
-          child: BlocBuilder(
+          SizedBox(
+            height: 24,
+          ),
+          BlocBuilder(
               bloc: Injector.fetchVentureBloc,
               builder: (context, state) {
                 if (state is FetchedVenturesState) {
@@ -323,8 +323,8 @@ class SearchPage extends StatelessWidget {
                   );
                 }
               }),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

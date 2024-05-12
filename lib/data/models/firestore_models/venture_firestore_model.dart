@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:socialpreneur/data/failure.dart';
@@ -14,6 +16,18 @@ class VentureFirestoreModel
       description: entity.description,
       logo: entity.logo,
       cover: entity.cover,
+      tagline: entity.tagline,
+      isVerified: entity.isVerified,
+      stage: entity.stage,
+      category: entity.category,
+      targetAudience: entity.targetAudience,
+      joinedDate: entity.joinedDate,
+      activeUsers: entity.activeUsers,
+      problemStatement: entity.problemStatement,
+      goals: entity.goals,
+      features: entity.features,
+      marketSizing: entity.marketSizing,
+      competitors: entity.competitors,
     );
   }
 

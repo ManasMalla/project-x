@@ -353,7 +353,166 @@ class VenturePage extends StatelessWidget {
                     children: [
                       Expanded(
                         child: FilledButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            final _amountController = TextEditingController();
+                            final _equityController = TextEditingController();
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (context) {
+                                  return BottomSheet(
+                                      onClosing: () {},
+                                      builder: (context) {
+                                        return Padding(
+                                          padding: const EdgeInsets.all(24.0),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text(
+                                                "Invest",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headlineMedium
+                                                    ?.copyWith(
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                              ),
+                                              const SizedBox(
+                                                height: 8,
+                                              ),
+                                              Text(
+                                                "You are about to invest in ${venture.name}. Please enter the amount you wish to invest and the terms of the investment.",
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              SizedBox(
+                                                height: 16,
+                                              ),
+                                              Row(
+                                                children: [
+                                                  SizedBox(
+                                                    height: 150,
+                                                    width: 150,
+                                                    child: Stack(
+                                                      children: [
+                                                        SizedBox(
+                                                          width: 150,
+                                                          height: 150,
+                                                          child:
+                                                              CircularProgressIndicator(
+                                                            backgroundColor: Theme
+                                                                    .of(context)
+                                                                .colorScheme
+                                                                .primaryContainer,
+                                                            value: venture
+                                                                    .marketSizing
+                                                                    .roi /
+                                                                100,
+                                                          ),
+                                                        ),
+                                                        Center(
+                                                          child: Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .min,
+                                                            children: [
+                                                              Text(
+                                                                "${venture.marketSizing.roi}%",
+                                                                style: Theme.of(
+                                                                        context)
+                                                                    .textTheme
+                                                                    .titleLarge
+                                                                    ?.copyWith(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                              ),
+                                                              SizedBox(
+                                                                height: 8,
+                                                              ),
+                                                              Text(
+                                                                "Return on Investment",
+                                                                style: Theme.of(
+                                                                        context)
+                                                                    .textTheme
+                                                                    .labelSmall,
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 24,
+                                                  ),
+                                                  Expanded(
+                                                    child: Column(
+                                                      children: [
+                                                        TextField(
+                                                          controller:
+                                                              _amountController,
+                                                          decoration: InputDecoration(
+                                                              prefixText: "₹",
+                                                              labelText:
+                                                                  "Amount",
+                                                              border: OutlineInputBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              14))),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 8,
+                                                        ),
+                                                        TextField(
+                                                          controller:
+                                                              _equityController,
+                                                          decoration: InputDecoration(
+                                                              labelText:
+                                                                  "Equity",
+                                                              suffixText: "%",
+                                                              border: OutlineInputBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              14))),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 8,
+                                                        ),
+                                                        FilledButton(
+                                                          onPressed: () {
+                                                            if (_amountController
+                                                                    .text
+                                                                    .isEmpty ||
+                                                                _equityController
+                                                                    .text
+                                                                    .isEmpty) {
+                                                              showSnackbar(
+                                                                  context,
+                                                                  "Please fill in all the fields.");
+                                                              return;
+                                                            }
+                                                            Navigator.pop(
+                                                                context);
+                                                            showSnackbar(
+                                                                context,
+                                                                "Investment request sent successfully!");
+                                                          },
+                                                          child:
+                                                              Text("Request"),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      });
+                                });
+                          },
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [

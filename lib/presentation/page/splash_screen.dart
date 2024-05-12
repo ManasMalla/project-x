@@ -18,10 +18,10 @@ class SplashScreen extends StatelessWidget {
         Injector.profileBloc.add(
             FetchProfileEvent(uid: FirebaseAuth.instance.currentUser!.uid));
         Injector.fetchVentureBloc.add(const FetchVentureEvent());
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => const HomePage()));
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const HomePage()));
       } else {
-        Navigator.of(context).push(
+        Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => const OnboardingPage()));
       }
     });

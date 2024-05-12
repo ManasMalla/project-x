@@ -48,25 +48,27 @@ class OnboardingPage extends StatelessWidget {
       body: PageView.builder(
         controller: _pageController,
         itemBuilder: (context, index) {
-          return OnboardingPageItemBuilder(
-              index: index,
-              title: onboardingData[index].title,
-              text: onboardingData[index].text,
-              image: onboardingData[index].image,
-              isForInvestor: onboardingData[index].isForInvestor,
-              alignment: index % 2 == 1
-                  ? OnboardingAlignment.bottom
-                  : OnboardingAlignment.top,
-              pageLength: onboardingData.length,
-              onNext: () {
-                if (index != onboardingData.length - 1) {
-                  _pageController.nextPage(
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeIn);
-                } else {
-                  onOnboardingComplete(context);
-                }
-              });
+          return SingleChildScrollView(
+            child: OnboardingPageItemBuilder(
+                index: index,
+                title: onboardingData[index].title,
+                text: onboardingData[index].text,
+                image: onboardingData[index].image,
+                isForInvestor: onboardingData[index].isForInvestor,
+                alignment: index % 2 == 1
+                    ? OnboardingAlignment.bottom
+                    : OnboardingAlignment.top,
+                pageLength: onboardingData.length,
+                onNext: () {
+                  if (index != onboardingData.length - 1) {
+                    _pageController.nextPage(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeIn);
+                  } else {
+                    onOnboardingComplete(context);
+                  }
+                }),
+          );
         },
         itemCount: onboardingData.length,
       ),

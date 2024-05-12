@@ -28,113 +28,115 @@ class OnboardingPageItemBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: <Widget>[
-          const Spacer(),
-          alignment == OnboardingAlignment.top
-              ? Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 24),
-                  child: SvgPicture.asset(
-                    image,
-                    height: 240,
-                  ),
-                )
-              : const SizedBox(),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 24),
-            child: Row(
-              children: [
-                const SizedBox(
-                  width: 36,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        SizedBox(
+          height: 48,
+        ),
+        alignment == OnboardingAlignment.top
+            ? Padding(
+                padding: const EdgeInsets.symmetric(vertical: 24),
+                child: SvgPicture.asset(
+                  image,
+                  height: 240,
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    ...(isForInvestor
-                        ? [
-                            DecoratedBox(
-                              decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .primaryContainer,
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: Text(
-                                  "For Investors".toUpperCase(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelSmall
-                                      ?.copyWith(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onPrimaryContainer),
-                                ),
+              )
+            : const SizedBox(),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 24),
+          child: Row(
+            children: [
+              const SizedBox(
+                width: 36,
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  ...(isForInvestor
+                      ? [
+                          DecoratedBox(
+                            decoration: BoxDecoration(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer,
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Text(
+                                "For Investors".toUpperCase(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelSmall
+                                    ?.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimaryContainer),
                               ),
                             ),
-                            const SizedBox(
-                              height: 16,
-                            ),
-                          ]
-                        : []),
-                    Text(
-                      title,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineLarge
-                          ?.copyWith(fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    Text(
-                      text,
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onBackground
-                              .withOpacity(0.6)),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          alignment != OnboardingAlignment.top
-              ? Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 24),
-                  child: SvgPicture.asset(
-                    image,
-                    height: 240,
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                        ]
+                      : []),
+                  Text(
+                    title,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineLarge
+                        ?.copyWith(fontWeight: FontWeight.bold),
                   ),
-                )
-              : const SizedBox(),
-          PageViewIndicator(index, pageLength),
-          Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: MaterialButton(
-              height: 54,
-              minWidth: double.infinity,
-              color: Theme.of(context).colorScheme.primary,
-              onPressed: onNext,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  Text(
+                    text,
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onBackground
+                            .withOpacity(0.6)),
+                  ),
+                ],
               ),
-              child: Text(
-                "Next",
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onPrimary,
-                    fontWeight: FontWeight.w600),
-              ),
+            ],
+          ),
+        ),
+        alignment != OnboardingAlignment.top
+            ? Padding(
+                padding: const EdgeInsets.symmetric(vertical: 24),
+                child: SvgPicture.asset(
+                  image,
+                  height: 240,
+                ),
+              )
+            : const SizedBox(),
+        PageViewIndicator(index, pageLength),
+        Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: MaterialButton(
+            height: 54,
+            minWidth: double.infinity,
+            color: Theme.of(context).colorScheme.primary,
+            onPressed: onNext,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Text(
+              "Next",
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  fontWeight: FontWeight.w600),
             ),
           ),
-          const Spacer(
-            flex: 2,
-          ),
-        ],
-      ),
+        ),
+        SizedBox(
+          height: 96,
+        ),
+      ],
     );
   }
 }

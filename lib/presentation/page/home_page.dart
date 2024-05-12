@@ -152,38 +152,41 @@ class _HomePageState extends State<HomePage> {
             //User roles: Investor - Innovator
             body: Row(
               children: [
-                NavigationDrawer(
-                  selectedIndex: navigationStateProvider.currentDestination,
-                  children: [
-                    SizedBox(
-                      height: 32,
-                    ),
-                    NavigationDrawerDestination(
-                      icon: Icon(Icons.home_outlined),
-                      label: Text('Home'),
-                    ),
-                    NavigationDrawerDestination(
-                      icon: Icon(Icons.search_outlined),
-                      label: Text('Search'),
-                    ),
-                    NavigationDrawerDestination(
-                      icon: Icon(Icons.add_box_outlined),
-                      label: Text('Create'),
-                    ),
-                    NavigationDrawerDestination(
-                      icon: Icon(Icons.business_outlined),
-                      label: Text('TBA'),
-                    ),
-                    NavigationDrawerDestination(
-                      icon: Icon(Icons.account_circle_outlined),
-                      label: Text('Profile'),
-                    ),
-                  ],
-                  onDestinationSelected: (value) {
-                    navigationStateProvider
-                        .navigateTo(NavigationDestinations.values[value]);
-                  },
-                ),
+                constraints.maxWidth > 600
+                    ? NavigationDrawer(
+                        selectedIndex:
+                            navigationStateProvider.currentDestination,
+                        children: [
+                          SizedBox(
+                            height: 32,
+                          ),
+                          NavigationDrawerDestination(
+                            icon: Icon(Icons.home_outlined),
+                            label: Text('Home'),
+                          ),
+                          NavigationDrawerDestination(
+                            icon: Icon(Icons.search_outlined),
+                            label: Text('Search'),
+                          ),
+                          NavigationDrawerDestination(
+                            icon: Icon(Icons.add_box_outlined),
+                            label: Text('Create'),
+                          ),
+                          NavigationDrawerDestination(
+                            icon: Icon(Icons.business_outlined),
+                            label: Text('TBA'),
+                          ),
+                          NavigationDrawerDestination(
+                            icon: Icon(Icons.account_circle_outlined),
+                            label: Text('Profile'),
+                          ),
+                        ],
+                        onDestinationSelected: (value) {
+                          navigationStateProvider
+                              .navigateTo(NavigationDestinations.values[value]);
+                        },
+                      )
+                    : SizedBox(),
                 Expanded(
                   child: DesktopPadding(
                     applyPadding:

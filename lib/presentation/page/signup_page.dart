@@ -64,10 +64,10 @@ class _SignUpPageState extends State<SignUpPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Expanded(
+                        const Expanded(
                           child: Divider(),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 16,
                         ),
                         SegmentedButton<String>(
@@ -77,12 +77,12 @@ class _SignUpPageState extends State<SignUpPage> {
                                       borderRadius:
                                           BorderRadius.circular(14)))),
                           segments: [
-                            ButtonSegment(
+                            const ButtonSegment(
                               value: 'Investor',
                               label: Text("Investor"),
                               icon: Icon(Icons.monetization_on_outlined),
                             ),
-                            ButtonSegment(
+                            const ButtonSegment(
                               value: 'Innovator',
                               label: Text("Innovator"),
                               icon: Icon(Icons.science_outlined),
@@ -96,15 +96,15 @@ class _SignUpPageState extends State<SignUpPage> {
                             });
                           },
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 16,
                         ),
-                        Expanded(
+                        const Expanded(
                           child: Divider(),
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 16,
                     ),
                     TextField(
@@ -141,7 +141,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 16,
                         ),
                         Expanded(
@@ -183,7 +183,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 16,
                         ),
                         Expanded(

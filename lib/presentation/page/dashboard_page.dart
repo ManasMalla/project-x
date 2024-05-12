@@ -26,12 +26,12 @@ class DashboardPage extends StatelessWidget {
                     .headlineLarge
                     ?.copyWith(fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Text(
                 "Here are some of the things you can do:",
                 style: Theme.of(context).textTheme.titleMedium,
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Card(
                 child: Padding(
                   padding: const EdgeInsets.all(24.0),
@@ -44,29 +44,30 @@ class DashboardPage extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                 ),
                       ),
-                      Text("Request for collaboration to work on a project"),
-                      SizedBox(height: 8),
-                      Opacity(
+                      const Text(
+                          "Request for collaboration to work on a project"),
+                      const SizedBox(height: 8),
+                      const Opacity(
                         opacity: 0.6,
                         child: Text(
                           "\"Let's work on something that is able to lorem ipsum dolor sit amet, consectetur adipiscing elit\"",
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       Row(
                         children: [
                           Expanded(
                             child: FilledButton(
                               onPressed: () {},
-                              child: Text("Accept"),
+                              child: const Text("Accept"),
                             ),
                           ),
-                          SizedBox(width: 16),
+                          const SizedBox(width: 16),
                           Expanded(
                             child: OutlinedButton(
                               onPressed: () {},
-                              child: Text("Decline"),
+                              child: const Text("Decline"),
                             ),
                           ),
                         ],
@@ -75,7 +76,7 @@ class DashboardPage extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -96,7 +97,7 @@ class DashboardPage extends StatelessWidget {
                                     fontWeight: FontWeight.bold,
                                   ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 8,
                             ),
                             ListView.builder(
@@ -104,7 +105,7 @@ class DashboardPage extends StatelessWidget {
                                 return Row(
                                   children: [
                                     Checkbox(value: false, onChanged: (_) {}),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 8,
                                     ),
                                     Text("Milestone #${index + 1}"),
@@ -120,7 +121,7 @@ class DashboardPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(width: 16),
+                  const SizedBox(width: 16),
                   Expanded(
                     child: Card(
                       child: Padding(
@@ -137,7 +138,7 @@ class DashboardPage extends StatelessWidget {
                                     fontWeight: FontWeight.bold,
                                   ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 8,
                             ),
                             ListView.builder(
@@ -145,7 +146,7 @@ class DashboardPage extends StatelessWidget {
                                 return Row(
                                   children: [
                                     Checkbox(value: false, onChanged: (_) {}),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 8,
                                     ),
                                     Text("Milestone #${index + 3}"),

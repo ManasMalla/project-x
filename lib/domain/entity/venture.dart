@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:socialpreneur/domain/entity/user.dart';
 
 enum VentureStage { ideation, prototype, marketReady, established }
 
@@ -73,6 +72,5 @@ class Venture extends Equatable {
   });
 
   @override
-  // TODO: implement props
   List<Object?> get props => [name];
 }

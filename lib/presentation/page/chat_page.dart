@@ -49,10 +49,10 @@ class ChatPage extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.edit_square),
+            icon: const Icon(Icons.edit_square),
             onPressed: () {},
           ),
-          SizedBox(
+          const SizedBox(
             width: 24,
           ),
         ],
@@ -60,8 +60,8 @@ class ChatPage extends StatelessWidget {
       body: DesktopPadding(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(24.0),
+            const Padding(
+              padding: EdgeInsets.all(24.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

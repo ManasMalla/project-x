@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable, use_build_context_synchronously
+
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -284,7 +286,7 @@ class _NewVenturePageState extends State<NewVenturePage> {
                             itemBuilder: (context, index) {
                               return Row(
                                 children: [
-                                  Icon(Icons.check),
+                                  const Icon(Icons.check),
                                   const SizedBox(
                                     width: 8,
                                   ),
@@ -293,7 +295,7 @@ class _NewVenturePageState extends State<NewVenturePage> {
                                     width: 8,
                                   ),
                                   IconButton(
-                                    icon: Icon(Icons.delete),
+                                    icon: const Icon(Icons.delete),
                                     onPressed: () {
                                       setState(() {
                                         goals.removeAt(index);
@@ -307,7 +309,7 @@ class _NewVenturePageState extends State<NewVenturePage> {
                             shrinkWrap: true,
                             primary: false,
                           ),
-                          Divider(),
+                          const Divider(),
                         ]
                       : []),
                   TextField(
@@ -329,7 +331,7 @@ class _NewVenturePageState extends State<NewVenturePage> {
                             itemBuilder: (context, index) {
                               return Row(
                                 children: [
-                                  Icon(Icons.new_releases),
+                                  const Icon(Icons.new_releases),
                                   const SizedBox(
                                     width: 8,
                                   ),
@@ -338,7 +340,7 @@ class _NewVenturePageState extends State<NewVenturePage> {
                                     width: 8,
                                   ),
                                   IconButton(
-                                    icon: Icon(Icons.delete),
+                                    icon: const Icon(Icons.delete),
                                     onPressed: () {
                                       setState(() {
                                         features.removeAt(index);
@@ -352,7 +354,7 @@ class _NewVenturePageState extends State<NewVenturePage> {
                             shrinkWrap: true,
                             primary: false,
                           ),
-                          Divider(),
+                          const Divider(),
                         ]
                       : []),
                   Align(
@@ -446,8 +448,6 @@ class _NewVenturePageState extends State<NewVenturePage> {
                                 "ventures/${nameController.text.replaceAll(" ", "-").toLowerCase()}/${cover!.name}");
                             final logoRef = storageRef.child(
                                 "ventures/${nameController.text.replaceAll(" ", "-").toLowerCase()}/${logo!.name}");
-                            print(coverRef.fullPath);
-                            print(logoRef.fullPath);
                             showSnackbar(context, "Uploading images...");
                             if (kIsWeb) {
                               final coverUploadTask = coverRef
@@ -456,7 +456,6 @@ class _NewVenturePageState extends State<NewVenturePage> {
                                 final logoUploadTask = logoRef
                                     .putData(await logoFile.readAsBytes())
                                     .then((p1) async {
-                                  print(p0.state);
                                   showSnackbar(context, "Images uploaded");
                                   final coverUrl =
                                       await coverRef.getDownloadURL();
@@ -536,7 +535,6 @@ class _NewVenturePageState extends State<NewVenturePage> {
                                 coverRef.putFile(coverFile).then((p0) {
                               final logoUploadTask =
                                   logoRef.putFile(logoFile).then((p1) async {
-                                print(p0.state);
                                 showSnackbar(context, "Images uploaded");
                                 final coverUrl =
                                     await coverRef.getDownloadURL();
@@ -613,7 +611,7 @@ class _NewVenturePageState extends State<NewVenturePage> {
                                 "Error uploading images: ${e.toString()}");
                           }
                         },
-                        child: Text("Create Venture"),
+                        child: const Text("Create Venture"),
                       ),
                     ),
                     const SizedBox(
@@ -622,7 +620,7 @@ class _NewVenturePageState extends State<NewVenturePage> {
                     Expanded(
                       child: OutlinedButton(
                         onPressed: () {},
-                        child: Text("Cancel"),
+                        child: const Text("Cancel"),
                       ),
                     ),
                   ]),

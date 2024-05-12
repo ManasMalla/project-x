@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:socialpreneur/data/models/user_model.dart';
-import 'package:socialpreneur/domain/entity/user.dart';
 import 'package:socialpreneur/domain/entity/venture.dart';
 
 class VentureModel extends Equatable {
@@ -119,6 +117,5 @@ class VentureModel extends Equatable {
       competitors: competitors);
 
   @override
-  // TODO: implement props
   List<Object?> get props => [name];
 }

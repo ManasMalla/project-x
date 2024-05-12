@@ -79,7 +79,8 @@ class _HomePageState extends State<HomePage> {
                               onPressed: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) => NotificationPage(),
+                                    builder: (context) =>
+                                        const NotificationPage(),
                                   ),
                                 );
                               },
@@ -94,7 +95,7 @@ class _HomePageState extends State<HomePage> {
                               onPressed: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) => ChatPage(),
+                                    builder: (context) => const ChatPage(),
                                   ),
                                 );
                               },
@@ -109,7 +110,38 @@ class _HomePageState extends State<HomePage> {
                         : navigationStateProvider.currentDestination == 4
                             ? [
                                 IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            title: const Text("Sign out"),
+                                            content: const Text(
+                                                "Are you sure you want to sign out?"),
+                                            actions: [
+                                              TextButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: const Text("Cancel")),
+                                              TextButton(
+                                                  onPressed: () {
+                                                    FirebaseAuth.instance
+                                                        .signOut();
+                                                    Navigator.of(context)
+                                                        .pushAndRemoveUntil(
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        const MyApp()),
+                                                            (route) => false);
+                                                  },
+                                                  child:
+                                                      const Text("Sign out")),
+                                            ],
+                                          );
+                                        });
+                                  },
                                   icon: const Icon(Icons.menu_outlined),
                                 ),
                                 const SizedBox(
@@ -157,26 +189,26 @@ class _HomePageState extends State<HomePage> {
                         selectedIndex:
                             navigationStateProvider.currentDestination,
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: 32,
                           ),
-                          NavigationDrawerDestination(
+                          const NavigationDrawerDestination(
                             icon: Icon(Icons.home_outlined),
                             label: Text('Home'),
                           ),
-                          NavigationDrawerDestination(
+                          const NavigationDrawerDestination(
                             icon: Icon(Icons.search_outlined),
                             label: Text('Search'),
                           ),
-                          NavigationDrawerDestination(
+                          const NavigationDrawerDestination(
                             icon: Icon(Icons.add_box_outlined),
                             label: Text('Create'),
                           ),
-                          NavigationDrawerDestination(
+                          const NavigationDrawerDestination(
                             icon: Icon(Icons.business_outlined),
                             label: Text('TBA'),
                           ),
-                          NavigationDrawerDestination(
+                          const NavigationDrawerDestination(
                             icon: Icon(Icons.account_circle_outlined),
                             label: Text('Profile'),
                           ),
@@ -186,7 +218,7 @@ class _HomePageState extends State<HomePage> {
                               .navigateTo(NavigationDestinations.values[value]);
                         },
                       )
-                    : SizedBox(),
+                    : const SizedBox(),
                 Expanded(
                   child: DesktopPadding(
                     applyPadding:
@@ -203,7 +235,7 @@ class _HomePageState extends State<HomePage> {
                                       ))
                                     ]
                                   : [
-                                      Center(
+                                      const Center(
                                         child: CircularProgressIndicator(),
                                       ),
                                     ]),
@@ -216,7 +248,7 @@ class _HomePageState extends State<HomePage> {
                                 ]
                               : navigationStateProvider.currentDestination == 2
                                   ? <Widget>[
-                                      Expanded(
+                                      const Expanded(
                                         child: NewVenturePage(),
                                       )
                                     ]
@@ -224,7 +256,7 @@ class _HomePageState extends State<HomePage> {
                                               .currentDestination ==
                                           3
                                       ? <Widget>[
-                                          Expanded(
+                                          const Expanded(
                                             child: ComingSoonPage(),
                                           ),
                                         ]
@@ -280,7 +312,7 @@ class SearchPage extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             height: 40,
             child: ListView(
               scrollDirection: Axis.horizontal,
@@ -296,16 +328,16 @@ class SearchPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Padding(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   vertical: 8, horizontal: 24),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Icon(
+                                  const Icon(
                                     Icons.arrow_outward_rounded,
                                     size: 12,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 8,
                                   ),
                                   Text(
@@ -320,7 +352,7 @@ class SearchPage extends StatelessWidget {
                   .toList(),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 24,
           ),
           BlocBuilder(
@@ -365,7 +397,7 @@ class SearchPage extends StatelessWidget {
                       );
                     },
                     separatorBuilder: (_, __) {
-                      return SizedBox(
+                      return const SizedBox(
                         height: 8,
                       );
                     },

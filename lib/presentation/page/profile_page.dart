@@ -232,76 +232,77 @@ class _ProfilePageState extends State<ProfilePage>
             const SizedBox(
               height: 12,
             ),
-            AutoScaleTabBarView(
-              controller: _tabController,
-              children: [
-                Container(
-                  child: GridView.builder(
-                    shrinkWrap: true,
-                    primary: false,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3, childAspectRatio: 0.7),
-                    itemBuilder: (context, index) {
-                      final venture = widget.user.ventures[index] as Venture;
-                      return InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => VenturePage(venture)));
-                        },
-                        child: Container(
-                          margin: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.background,
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          child: Column(
-                            children: [
-                              ClipOval(
-                                child: Image.network(
-                                  venture.logo,
-                                  height: 86,
-                                  width: 86,
-                                  fit: BoxFit.cover,
+            LayoutBuilder(builder: (context, constraints) {
+              return AutoScaleTabBarView(
+                controller: _tabController,
+                children: [
+                  Container(
+                    child: GridView.builder(
+                      shrinkWrap: true,
+                      primary: false,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3, childAspectRatio: 0.7),
+                      itemBuilder: (context, index) {
+                        final venture = widget.user.ventures[index] as Venture;
+                        return InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => VenturePage(venture)));
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.background,
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: Column(
+                              children: [
+                                ClipOval(
+                                  child: Image.network(
+                                    venture.logo,
+                                    height: 86,
+                                    width: 86,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 16,
-                              ),
-                              Text(
-                                venture.name,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.copyWith(fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(
-                                height: 4,
-                              ),
-                              Text(
-                                venture.description,
-                                textAlign: TextAlign.center,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall
-                                    ?.copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .outline),
-                              ),
-                            ],
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                                Text(
+                                  venture.name,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall
+                                      ?.copyWith(fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(
+                                  height: 4,
+                                ),
+                                Text(
+                                  venture.description,
+                                  textAlign: TextAlign.center,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .outline),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                    itemCount: widget.user.ventures.length,
+                        );
+                      },
+                      itemCount: widget.user.ventures.length,
+                    ),
                   ),
-                ),
-                Container(),
-              ],
-            ),
+                  Container(),
+                ],
+              );
+            }),
           ],
         ),
       ),

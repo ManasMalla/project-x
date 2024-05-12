@@ -1,3 +1,5 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -48,7 +50,7 @@ class VenturePage extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    icon: Icon(Icons.chevron_left_rounded),
+                    icon: const Icon(Icons.chevron_left_rounded),
                   ),
                 ],
               ),
@@ -74,7 +76,7 @@ class VenturePage extends StatelessWidget {
                                   .headlineMedium
                                   ?.copyWith(fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 8,
                             ),
                             venture.isVerified
@@ -84,7 +86,7 @@ class VenturePage extends StatelessWidget {
                                     color:
                                         Theme.of(context).colorScheme.primary,
                                   )
-                                : SizedBox(),
+                                : const SizedBox(),
                           ],
                         ),
                         Padding(
@@ -278,7 +280,7 @@ class VenturePage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 24,
                         ),
                         venture.activeUsers > 0
@@ -309,7 +311,7 @@ class VenturePage extends StatelessWidget {
                                   ),
                                 ),
                               )
-                            : SizedBox(),
+                            : const SizedBox(),
                       ],
                     ),
                     const SizedBox(
@@ -395,7 +397,7 @@ class VenturePage extends StatelessWidget {
                                                   "You are about to invest in ${venture.name}. Please enter the amount you wish to invest and the terms of the investment.",
                                                   textAlign: TextAlign.center,
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   height: 16,
                                                 ),
                                                 Row(
@@ -437,7 +439,7 @@ class VenturePage extends StatelessWidget {
                                                                             FontWeight.bold,
                                                                       ),
                                                                 ),
-                                                                SizedBox(
+                                                                const SizedBox(
                                                                   height: 8,
                                                                 ),
                                                                 Text(
@@ -453,7 +455,7 @@ class VenturePage extends StatelessWidget {
                                                         ],
                                                       ),
                                                     ),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       width: 24,
                                                     ),
                                                     Expanded(
@@ -471,7 +473,7 @@ class VenturePage extends StatelessWidget {
                                                                         BorderRadius.circular(
                                                                             14))),
                                                           ),
-                                                          SizedBox(
+                                                          const SizedBox(
                                                             height: 8,
                                                           ),
                                                           TextField(
@@ -486,7 +488,7 @@ class VenturePage extends StatelessWidget {
                                                                         BorderRadius.circular(
                                                                             14))),
                                                           ),
-                                                          SizedBox(
+                                                          const SizedBox(
                                                             height: 8,
                                                           ),
                                                           FilledButton(
@@ -508,8 +510,8 @@ class VenturePage extends StatelessWidget {
                                                                   context,
                                                                   "Investment request sent successfully!");
                                                             },
-                                                            child:
-                                                                Text("Request"),
+                                                            child: const Text(
+                                                                "Request"),
                                                           ),
                                                         ],
                                                       ),
@@ -525,11 +527,11 @@ class VenturePage extends StatelessWidget {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.monetization_on_rounded,
                                   size: 16,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 8,
                                 ),
                                 Text(
@@ -548,7 +550,7 @@ class VenturePage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 12,
                         ),
                         OutlinedButton(
@@ -556,11 +558,11 @@ class VenturePage extends StatelessWidget {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.add,
                                 size: 16,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 8,
                               ),
                               Text(
@@ -616,14 +618,14 @@ class VenturePage extends StatelessWidget {
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 4.0),
+                                  const Padding(
+                                    padding: EdgeInsets.only(top: 4.0),
                                     child: Icon(
                                       Icons.check,
                                       size: 20,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 8,
                                   ),
                                   Expanded(child: Text(e)),
@@ -728,7 +730,7 @@ class VenturePage extends StatelessWidget {
                     const SizedBox(
                       height: 12,
                     ),
-                    MilestoneWidget(),
+                    const MilestoneWidget(),
                     const SizedBox(
                       height: 24,
                     ),
@@ -760,7 +762,7 @@ class VenturePage extends StatelessWidget {
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 8,
                             ),
                             Text(
@@ -795,7 +797,7 @@ class VenturePage extends StatelessWidget {
                                         fit: BoxFit.cover,
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 8,
                                     ),
                                     Text(
@@ -828,7 +830,7 @@ class VenturePage extends StatelessWidget {
                                         fit: BoxFit.cover,
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 8,
                                     ),
                                     Text(
@@ -863,7 +865,7 @@ class VenturePage extends StatelessWidget {
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 8,
                             ),
                             Text(
@@ -893,7 +895,7 @@ class VenturePage extends StatelessWidget {
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 8,
                             ),
                             Text(
@@ -1008,11 +1010,11 @@ class MilestoneWidget extends StatelessWidget {
           size: 40,
           color: Theme.of(context).colorScheme.primary,
         ),
-        Icon(
+        const Icon(
           Icons.flag_circle_outlined,
           size: 40,
         ),
-        Icon(
+        const Icon(
           Icons.flag_circle_outlined,
           size: 40,
         ),

@@ -5,6 +5,7 @@ import 'package:socialpreneur/presentation/bloc/profile_module/profile_event.dar
 import 'package:socialpreneur/presentation/injector.dart';
 import 'package:socialpreneur/presentation/page/home_page.dart';
 import 'package:socialpreneur/presentation/page/signup_page.dart';
+import 'package:socialpreneur/presentation/util/desktop_padding.dart';
 import 'package:socialpreneur/presentation/util/snackbar_util.dart';
 
 class LoginPage extends StatelessWidget {
@@ -45,188 +46,193 @@ class LoginPage extends StatelessWidget {
             const SizedBox(
               height: 24,
             ),
-            Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    "Welcome back to\nThe Future of Development",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineSmall
-                        ?.copyWith(fontWeight: FontWeight.w600),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    "it's time to be a force for change",
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.outline),
-                  ),
-                  const SizedBox(
-                    height: 32,
-                  ),
-                  TextField(
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(14)),
-                      labelText: 'Email',
+            DesktopPadding(
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "Welcome back to\nThe Future of Development",
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineSmall
+                          ?.copyWith(fontWeight: FontWeight.w600),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      TextField(
-                        obscureText: true,
-                        controller: _passwordController,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(14)),
-                          labelText: 'Password',
-                        ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      "it's time to be a force for change",
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          color: Theme.of(context).colorScheme.outline),
+                    ),
+                    const SizedBox(
+                      height: 32,
+                    ),
+                    TextField(
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(14)),
+                        labelText: 'Email',
                       ),
-                      TextButton(
-                          onPressed: () {},
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        TextField(
+                          obscureText: true,
+                          controller: _passwordController,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(14)),
+                            labelText: 'Password',
+                          ),
+                        ),
+                        TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              'Forgot Password',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                            )),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 4,
+                    ),
+                    Row(
+                      children: <Widget>[
+                        FilledButton(
+                          onPressed: () async {
+                            //Implement login
+                            showSnackbar(context, "Logging in...");
+                            try {
+                              await FirebaseAuth.instance
+                                  .signInWithEmailAndPassword(
+                                      email: _emailController.text,
+                                      password: _passwordController.text);
+                              //Navigate forward
+                              if (context.mounted) {
+                                Injector.profileBloc.add(FetchProfileEvent(
+                                    uid: FirebaseAuth
+                                        .instance.currentUser!.uid));
+                                Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                    builder: (context) => const HomePage(),
+                                  ),
+                                );
+                              }
+                            } on FirebaseAuthException catch (e) {
+                              switch (e.code) {
+                                case 'invalid-email':
+                                  showSnackbar(context,
+                                      'Oops! We couldn\'t find the email address.');
+                                  break;
+                                case 'user-disabled':
+                                  showSnackbar(
+                                      context, 'Oops! User has been disabled.');
+                                  break;
+                                case 'user-not-found':
+                                  showSnackbar(
+                                      context, 'Oops! User not found.');
+                                  break;
+                                case 'wrong-password':
+                                  showSnackbar(context,
+                                      'Oops! Wrong password. Please try again.');
+                                  break;
+                                default:
+                                  showSnackbar(context, e.message.toString());
+                              }
+                            }
+                          },
                           child: Text(
-                            'Forgot Password',
+                            'Log in',
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium
                                 ?.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                ),
-                          )),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 4,
-                  ),
-                  Row(
-                    children: <Widget>[
-                      FilledButton(
-                        onPressed: () async {
-                          //Implement login
-                          showSnackbar(context, "Logging in...");
-                          try {
-                            await FirebaseAuth.instance
-                                .signInWithEmailAndPassword(
-                                    email: _emailController.text,
-                                    password: _passwordController.text);
-                            //Navigate forward
-                            if (context.mounted) {
-                              Injector.profileBloc.add(FetchProfileEvent(
-                                  uid: FirebaseAuth.instance.currentUser!.uid));
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                  builder: (context) => const HomePage(),
-                                ),
-                              );
-                            }
-                          } on FirebaseAuthException catch (e) {
-                            switch (e.code) {
-                              case 'invalid-email':
-                                showSnackbar(context,
-                                    'Oops! We couldn\'t find the email address.');
-                                break;
-                              case 'user-disabled':
-                                showSnackbar(
-                                    context, 'Oops! User has been disabled.');
-                                break;
-                              case 'user-not-found':
-                                showSnackbar(context, 'Oops! User not found.');
-                                break;
-                              case 'wrong-password':
-                                showSnackbar(context,
-                                    'Oops! Wrong password. Please try again.');
-                                break;
-                              default:
-                                showSnackbar(context, e.message.toString());
-                            }
-                          }
-                        },
-                        child: Text(
-                          'Log in',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary),
+                                    fontWeight: FontWeight.w600,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimary),
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 16,
-                      ),
-                      OutlinedButton(
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => SignUpPage()));
-                        },
-                        child: Text(
-                          "Sign up",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.copyWith(fontWeight: FontWeight.w600),
+                        const SizedBox(
+                          width: 16,
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  const Row(
-                    children: <Widget>[
-                      Text("Or continue with"),
-                      SizedBox(
-                        width: 16,
-                      ),
-                      Expanded(child: Divider()),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  Row(
-                    children: [
-                      OAuthLoginButton(
-                        url:
-                            "https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg",
-                        onTap: () {
-                          showSnackbar(
-                              context, 'Not implemented. Coming soon!');
-                        },
-                      ),
-                      const SizedBox(width: 36),
-                      OAuthLoginButton(
-                        url:
-                            "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg",
-                        iconHeight: 20,
-                        onTap: () {
-                          showSnackbar(
-                              context, 'Not implemented. Coming soon!');
-                        },
-                      ),
-                      const SizedBox(width: 36),
-                      OAuthLoginButton(
-                        url:
-                            "https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023_original.svg",
-                        iconHeight: 16,
-                        onTap: () {
-                          showSnackbar(
-                              context, 'Not implemented. Coming soon!');
-                        },
-                      ),
-                    ],
-                  ),
-                ],
+                        OutlinedButton(
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => SignUpPage()));
+                          },
+                          child: Text(
+                            "Sign up",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    const Row(
+                      children: <Widget>[
+                        Text("Or continue with"),
+                        SizedBox(
+                          width: 16,
+                        ),
+                        Expanded(child: Divider()),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    Row(
+                      children: [
+                        OAuthLoginButton(
+                          url:
+                              "https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg",
+                          onTap: () {
+                            showSnackbar(
+                                context, 'Not implemented. Coming soon!');
+                          },
+                        ),
+                        const SizedBox(width: 36),
+                        OAuthLoginButton(
+                          url:
+                              "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg",
+                          iconHeight: 20,
+                          onTap: () {
+                            showSnackbar(
+                                context, 'Not implemented. Coming soon!');
+                          },
+                        ),
+                        const SizedBox(width: 36),
+                        OAuthLoginButton(
+                          url:
+                              "https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023_original.svg",
+                          iconHeight: 16,
+                          onTap: () {
+                            showSnackbar(
+                                context, 'Not implemented. Coming soon!');
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

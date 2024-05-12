@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:socialpreneur/data/static/onboarding_state_holder.dart';
 import 'package:socialpreneur/presentation/page/home_page.dart';
 import 'package:socialpreneur/presentation/page/login_page.dart';
+import 'package:socialpreneur/presentation/util/desktop_padding.dart';
 import 'package:socialpreneur/presentation/widgets/onboarding_page_item_builder.dart';
 
 class OnboardingPage extends StatelessWidget {
@@ -49,25 +50,27 @@ class OnboardingPage extends StatelessWidget {
         controller: _pageController,
         itemBuilder: (context, index) {
           return SingleChildScrollView(
-            child: OnboardingPageItemBuilder(
-                index: index,
-                title: onboardingData[index].title,
-                text: onboardingData[index].text,
-                image: onboardingData[index].image,
-                isForInvestor: onboardingData[index].isForInvestor,
-                alignment: index % 2 == 1
-                    ? OnboardingAlignment.bottom
-                    : OnboardingAlignment.top,
-                pageLength: onboardingData.length,
-                onNext: () {
-                  if (index != onboardingData.length - 1) {
-                    _pageController.nextPage(
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.easeIn);
-                  } else {
-                    onOnboardingComplete(context);
-                  }
-                }),
+            child: DesktopPadding(
+              child: OnboardingPageItemBuilder(
+                  index: index,
+                  title: onboardingData[index].title,
+                  text: onboardingData[index].text,
+                  image: onboardingData[index].image,
+                  isForInvestor: onboardingData[index].isForInvestor,
+                  alignment: index % 2 == 1
+                      ? OnboardingAlignment.bottom
+                      : OnboardingAlignment.top,
+                  pageLength: onboardingData.length,
+                  onNext: () {
+                    if (index != onboardingData.length - 1) {
+                      _pageController.nextPage(
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeIn);
+                    } else {
+                      onOnboardingComplete(context);
+                    }
+                  }),
+            ),
           );
         },
         itemCount: onboardingData.length,

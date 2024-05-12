@@ -20,6 +20,7 @@ import 'package:socialpreneur/presentation/page/notification_page.dart';
 import 'package:socialpreneur/presentation/page/profile_page.dart';
 import 'package:socialpreneur/presentation/page/venture_page.dart';
 import 'package:socialpreneur/presentation/providers/NavigationStateProvider.dart';
+import 'package:socialpreneur/presentation/util/desktop_padding.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -39,168 +40,224 @@ class _HomePageState extends State<HomePage> {
         builder: (context, navigationStateProvider, _) {
       return BlocBuilder<ProfileBloc, ProfileState>(
           builder: (context, profileState) {
-        return Scaffold(
-          appBar: navigationStateProvider.currentDestination == 2
-              ? null
-              : AppBar(
-                  toolbarHeight: kToolbarHeight *
-                      (navigationStateProvider.currentDestination == 1
-                          ? 1.5
-                          : 1),
-                  automaticallyImplyLeading: false,
-                  backgroundColor: Theme.of(context).colorScheme.background,
-                  title: navigationStateProvider.currentDestination == 1
-                      ? TextField(
-                          controller: _searchController,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(14)),
-                            labelText: 'Search',
-                            suffixIcon: const Icon(Icons.search_outlined),
-                          ),
-                        )
-                      : Text(
-                          navigationStateProvider.currentDestination == 4
-                              ? "@${(profileState is FetchedProfileState ? profileState.user.name.replaceAll(" ", "").toLowerCase() : "user")}"
-                              : appName.toUpperCase(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium
-                              ?.copyWith(
-                                  color: Theme.of(context).colorScheme.primary,
-                                  fontWeight: FontWeight.bold),
-                        ),
-                  actions: navigationStateProvider.currentDestination == 0
-                      ? [
-                          IconButton(
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => NotificationPage(),
-                                ),
-                              );
-                            },
-                            icon: const Icon(
-                              Icons.favorite_outline_rounded,
+        return LayoutBuilder(builder: (context, constraints) {
+          return Scaffold(
+            appBar: navigationStateProvider.currentDestination == 2
+                ? null
+                : AppBar(
+                    toolbarHeight: kToolbarHeight *
+                        (navigationStateProvider.currentDestination == 1
+                            ? 1.5
+                            : 1),
+                    automaticallyImplyLeading: false,
+                    backgroundColor: Theme.of(context).colorScheme.background,
+                    title: navigationStateProvider.currentDestination == 1
+                        ? TextField(
+                            controller: _searchController,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(14)),
+                              labelText: 'Search',
+                              suffixIcon: const Icon(Icons.search_outlined),
                             ),
+                          )
+                        : Text(
+                            navigationStateProvider.currentDestination == 4
+                                ? "@${(profileState is FetchedProfileState ? profileState.user.name.replaceAll(" ", "").toLowerCase() : "user")}"
+                                : appName.toUpperCase(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                    fontWeight: FontWeight.bold),
                           ),
-                          const SizedBox(
-                            width: 12,
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => ChatPage(),
-                                ),
-                              );
-                            },
-                            icon: const Icon(
-                              Icons.messenger_outline,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 16,
-                          ),
-                        ]
-                      : navigationStateProvider.currentDestination == 4
-                          ? [
-                              IconButton(
-                                onPressed: () {},
-                                icon: const Icon(Icons.menu_outlined),
-                              ),
-                              const SizedBox(
-                                width: 16,
-                              ),
-                            ]
-                          : [],
-                ),
-          bottomNavigationBar: CustomBottomNavigationBar(
-            currentIndex: navigationStateProvider.currentDestination,
-            onNavigated: (_) {
-              navigationStateProvider
-                  .navigateTo(NavigationDestinations.values[_]);
-            },
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home_outlined),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.search_outlined),
-                label: 'Search',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.add_box_outlined),
-                label: 'Create',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.business_outlined),
-                label: 'TBA',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.account_circle_outlined),
-                label: 'Profile',
-              ),
-            ],
-          ),
-          //User roles: Investor - Innovator
-          body: Column(
-            children: navigationStateProvider.currentDestination == 0
-                ? <Widget>[
-                    ...(profileState is FetchedProfileState
+                    actions: navigationStateProvider.currentDestination == 0
                         ? [
-                            Expanded(
-                                child: DashboardPage(
-                              user: profileState.user,
-                            ))
-                          ]
-                        : [
-                            Center(
-                              child: CircularProgressIndicator(),
+                            IconButton(
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => NotificationPage(),
+                                  ),
+                                );
+                              },
+                              icon: const Icon(
+                                Icons.favorite_outline_rounded,
+                              ),
                             ),
-                          ]),
-                  ]
-                : navigationStateProvider.currentDestination == 1
-                    ? <Widget>[
-                        Expanded(
-                            child:
-                                SearchPage(searchController: _searchController))
-                      ]
-                    : navigationStateProvider.currentDestination == 2
-                        ? <Widget>[
-                            Expanded(
-                              child: NewVenturePage(),
-                            )
+                            const SizedBox(
+                              width: 12,
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => ChatPage(),
+                                  ),
+                                );
+                              },
+                              icon: const Icon(
+                                Icons.messenger_outline,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 16,
+                            ),
                           ]
-                        : navigationStateProvider.currentDestination == 3
-                            ? <Widget>[
-                                Expanded(
-                                  child: ComingSoonPage(),
+                        : navigationStateProvider.currentDestination == 4
+                            ? [
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(Icons.menu_outlined),
+                                ),
+                                const SizedBox(
+                                  width: 16,
                                 ),
                               ]
-                            : navigationStateProvider.currentDestination == 4
-                                ? <Widget>[
-                                    Expanded(child: Builder(builder: (context) {
-                                      if (profileState is ErrorProfileState) {
-                                        return const Center(
-                                          child: Text("Error fetching profile"),
-                                        );
-                                      } else if (profileState
-                                          is FetchedProfileState) {
-                                        return ProfilePage(
-                                          user: profileState.user,
-                                        );
-                                      } else {
-                                        return const Center(
-                                          child: CircularProgressIndicator(),
-                                        );
-                                      }
-                                    })),
-                                  ]
-                                : <Widget>[],
-          ),
-        );
+                            : [],
+                  ),
+            bottomNavigationBar: constraints.maxWidth <= 600
+                ? CustomBottomNavigationBar(
+                    currentIndex: navigationStateProvider.currentDestination,
+                    onNavigated: (_) {
+                      navigationStateProvider
+                          .navigateTo(NavigationDestinations.values[_]);
+                    },
+                    items: const [
+                      BottomNavigationBarItem(
+                        icon: Icon(Icons.home_outlined),
+                        label: 'Home',
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(Icons.search_outlined),
+                        label: 'Search',
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(Icons.add_box_outlined),
+                        label: 'Create',
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(Icons.business_outlined),
+                        label: 'TBA',
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(Icons.account_circle_outlined),
+                        label: 'Profile',
+                      ),
+                    ],
+                  )
+                : null,
+            //User roles: Investor - Innovator
+            body: Row(
+              children: [
+                NavigationDrawer(
+                  selectedIndex: navigationStateProvider.currentDestination,
+                  children: [
+                    SizedBox(
+                      height: 32,
+                    ),
+                    NavigationDrawerDestination(
+                      icon: Icon(Icons.home_outlined),
+                      label: Text('Home'),
+                    ),
+                    NavigationDrawerDestination(
+                      icon: Icon(Icons.search_outlined),
+                      label: Text('Search'),
+                    ),
+                    NavigationDrawerDestination(
+                      icon: Icon(Icons.add_box_outlined),
+                      label: Text('Create'),
+                    ),
+                    NavigationDrawerDestination(
+                      icon: Icon(Icons.business_outlined),
+                      label: Text('TBA'),
+                    ),
+                    NavigationDrawerDestination(
+                      icon: Icon(Icons.account_circle_outlined),
+                      label: Text('Profile'),
+                    ),
+                  ],
+                  onDestinationSelected: (value) {
+                    navigationStateProvider
+                        .navigateTo(NavigationDestinations.values[value]);
+                  },
+                ),
+                Expanded(
+                  child: DesktopPadding(
+                    applyPadding:
+                        navigationStateProvider.currentDestination != 2,
+                    layoutConstraints: constraints,
+                    child: Column(
+                      children: navigationStateProvider.currentDestination == 0
+                          ? <Widget>[
+                              ...(profileState is FetchedProfileState
+                                  ? [
+                                      Expanded(
+                                          child: DashboardPage(
+                                        user: profileState.user,
+                                      ))
+                                    ]
+                                  : [
+                                      Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                    ]),
+                            ]
+                          : navigationStateProvider.currentDestination == 1
+                              ? <Widget>[
+                                  Expanded(
+                                      child: SearchPage(
+                                          searchController: _searchController))
+                                ]
+                              : navigationStateProvider.currentDestination == 2
+                                  ? <Widget>[
+                                      Expanded(
+                                        child: NewVenturePage(),
+                                      )
+                                    ]
+                                  : navigationStateProvider
+                                              .currentDestination ==
+                                          3
+                                      ? <Widget>[
+                                          Expanded(
+                                            child: ComingSoonPage(),
+                                          ),
+                                        ]
+                                      : navigationStateProvider
+                                                  .currentDestination ==
+                                              4
+                                          ? <Widget>[
+                                              Expanded(child:
+                                                  Builder(builder: (context) {
+                                                if (profileState
+                                                    is ErrorProfileState) {
+                                                  return const Center(
+                                                    child: Text(
+                                                        "Error fetching profile"),
+                                                  );
+                                                } else if (profileState
+                                                    is FetchedProfileState) {
+                                                  return ProfilePage(
+                                                    user: profileState.user,
+                                                  );
+                                                } else {
+                                                  return const Center(
+                                                    child:
+                                                        CircularProgressIndicator(),
+                                                  );
+                                                }
+                                              })),
+                                            ]
+                                          : <Widget>[],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
       });
     });
   }

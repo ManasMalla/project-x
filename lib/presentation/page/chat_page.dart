@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:socialpreneur/presentation/util/desktop_padding.dart';
 import 'package:socialpreneur/presentation/util/snackbar_util.dart';
 
 class ChatPage extends StatelessWidget {
@@ -56,45 +57,47 @@ class ChatPage extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("Messages"),
-                Text("Requests"),
-              ],
+      body: DesktopPadding(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Messages"),
+                  Text("Requests"),
+                ],
+              ),
             ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemBuilder: (context, index) {
-                final chat = chats[index];
-                return ListTile(
-                  onTap: () {
-                    showSnackbar(context, "Coming soon. Stay tuned!");
-                  },
-                  leading: ClipOval(
-                    child: Image.network(
-                      chat["imageUrl"] ?? "https://github.com/ManasMalla.png",
-                      height: 42,
-                      width: 42,
+            Expanded(
+              child: ListView.builder(
+                itemBuilder: (context, index) {
+                  final chat = chats[index];
+                  return ListTile(
+                    onTap: () {
+                      showSnackbar(context, "Coming soon. Stay tuned!");
+                    },
+                    leading: ClipOval(
+                      child: Image.network(
+                        chat["imageUrl"] ?? "https://github.com/ManasMalla.png",
+                        height: 42,
+                        width: 42,
+                      ),
                     ),
-                  ),
-                  title: Text(chat["name"] ?? "Andrew S"),
-                  subtitle: Opacity(
-                    opacity: 0.7,
-                    child: Text(chat["lastSeen"] ??
-                        "Shall we proceed with the earlier idea"),
-                  ),
-                );
-              },
-              itemCount: chats.length,
+                    title: Text(chat["name"] ?? "Andrew S"),
+                    subtitle: Opacity(
+                      opacity: 0.7,
+                      child: Text(chat["lastSeen"] ??
+                          "Shall we proceed with the earlier idea"),
+                    ),
+                  );
+                },
+                itemCount: chats.length,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

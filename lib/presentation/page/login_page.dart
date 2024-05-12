@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:socialpreneur/presentation/bloc/profile_module/profile_event.dart';
+import 'package:socialpreneur/presentation/injector.dart';
 import 'package:socialpreneur/presentation/page/home_page.dart';
 import 'package:socialpreneur/presentation/page/signup_page.dart';
 import 'package:socialpreneur/presentation/util/snackbar_util.dart';
@@ -26,7 +28,6 @@ class LoginPage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
-          
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
@@ -119,6 +120,8 @@ class LoginPage extends StatelessWidget {
                                     password: _passwordController.text);
                             //Navigate forward
                             if (context.mounted) {
+                              Injector.profileBloc.add(FetchProfileEvent(
+                                  uid: FirebaseAuth.instance.currentUser!.uid));
                               Navigator.of(context).pushReplacement(
                                 MaterialPageRoute(
                                   builder: (context) => const HomePage(),

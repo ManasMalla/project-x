@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:socialpreneur/presentation/bloc/profile_module/profile_event.dart';
+import 'package:socialpreneur/presentation/injector.dart';
 import 'package:socialpreneur/presentation/page/home_page.dart';
 import 'package:socialpreneur/presentation/page/login_page.dart';
 import 'package:socialpreneur/presentation/util/snackbar_util.dart';
@@ -233,6 +235,8 @@ class _SignUpPageState extends State<SignUpPage> {
                         });
                         //Navigate forward
                         if (context.mounted) {
+                          Injector.profileBloc.add(FetchProfileEvent(
+                              uid: FirebaseAuth.instance.currentUser!.uid));
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
                               builder: (context) => const HomePage(),
